@@ -26,7 +26,6 @@ then
     fi
 else
     echo "mysql already installed nothing to do"
-    exit 1
 fi
 
 dnf list installed python3
