@@ -33,7 +33,7 @@ then
     dnf install mysql -y>>$log_file
     VALIDATE $? "mysql"
 else
-    echo "mysql already installed nothing to do">> | tee -a $log_file
+    echo "mysql already installed nothing to do" | tee -a $log_file
 fi
 
 dnf list installed python3>>$log_file
