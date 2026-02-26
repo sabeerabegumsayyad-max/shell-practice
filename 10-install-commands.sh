@@ -12,11 +12,8 @@ fi
 
 dnf list installed mysql
 
-if [ $? -eq 0]
+if [ $? -ne 0]
 then
-    echo "mysql already installed"
-    exit1
-else
     echo "mysql is not installed ...going to install"
     dnf install mysql -y
 
@@ -27,22 +24,25 @@ else
         echo " mysql install is failure"
         exit 1
     fi
+else
+    echo "mysql already installed nothing to do"
+    exit 1
 fi
 
 dnf list installed python3
 if [ $? -eq 0 ]
 then
-    echo "python3 already installed nothing to do"
-    exit 1
-else
-    echo "python is not installed going to install it"
+    echo "python3 is not installed ...going to install"
     dnf install python3 -y
 
-    if [ $? -eq 0 ]
+    if [ $? -eq 0 ] 
     then
-        echo "python3 installation success"
+        echo " python install is success"
     else
-        echo "python3 installation failed"
+        echo " python install is failure"
         exit 1
     fi
+else
+    echo "python3 already installed nothing to do"
+    exit 1
 fi
