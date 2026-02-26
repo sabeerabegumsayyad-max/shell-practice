@@ -51,7 +51,6 @@ if [ $? -ne 0 ]
 then
     echo "nginx is not installed ...going to install"
     dnf install nginx -y
-
     if [ $? -eq 0 ] 
     then
         echo " nginx install is success"
