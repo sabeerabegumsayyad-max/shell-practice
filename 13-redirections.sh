@@ -1,0 +1,58 @@
+#!/bin/bash
+
+userid=$(id -u)
+logs_folder="/var/log/shallscript-logs"
+scriptname=$(echo $0 | cut -d "." -f1)
+log_file="$logs_folder/$scriptname.log"
+
+mkdir -p $logs_folder
+echo "script starting executing at : $(date)">>$log_file
+if [ $userid -ne 0 ]
+then
+    echo "please run this script with root access ">>$log_file
+    exit 1
+else
+    echo "running this script with root access ">>$log_file
+fi
+
+VALIDATE(){
+    if [ $1 -eq 0 ] 
+    then
+        echo " $2 install is success">>$log_file
+    else
+        echo " $2 install is failure">>$log_file
+        exit 1
+    fi
+}
+
+dnf list installed mysql
+
+if [ $? -ne 0 ]
+then
+    echo "mysql is not installed ...going to install">>$log_file
+    dnf install mysql -y
+    VALIDATE $? "mysql"
+else
+    echo "mysql already installed nothing to do">>$log_file
+fi
+
+dnf list installed python3
+if [ $? -ne 0 ]
+then
+    echo "python3 is not installed ...going to install">>$log_file
+    dnf install python3 -y
+    VALIDATE $? "python3"
+else
+    echo "python3 already installed nothing to do">>$log_file
+fi
+
+dnf list installed nginx
+if [ $? -ne 0 ]
+then
+    echo "nginx is not installed ...going to install">>$log_file
+    dnf install nginx -y
+    VALIDATE $? "nginx"
+else
+    echo "nginx already installed nothing to do">>$log_file
+    exit 1
+fi
