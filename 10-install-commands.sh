@@ -17,6 +17,7 @@ then
     echo "mysql already installed"
     exit1
 else
+    echo "mysql is not installed ...going to install"
     dnf install mysql -y
 
     if [ $? -eq 0 ] 
@@ -28,4 +29,20 @@ else
     fi
 fi
 
+dnf list installed python3
+if [ $? -eq 0 ]
+then
+    echo "python3 already installed nothing to do"
+    exit 1
+else
+    echo "python is not installed going to install it"
+    dnf install python3 -y
 
+    if [ $? -eq 0 ]
+    then
+        echo "python3 installation success"
+    else
+        echo "python3 installation failed"
+        exit 1
+    fi
+fi
