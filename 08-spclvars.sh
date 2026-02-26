@@ -7,5 +7,5 @@ echo "current directory : $PWD "
 echo " user name : $USER "
 echo " home dir : $HOME "
 echo " PiD of current script : $$ "
-sleep 10 &
+sleep 30 &
 echo " PID of back bgound ID : $! "
