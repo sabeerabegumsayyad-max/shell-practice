@@ -5,7 +5,7 @@ logs_folder="/var/log/shallscript-logs"
 scriptname=$(echo $0 | cut -d "." -f1)
 log_file="$logs_folder/$scriptname.log"
 
-package=("mysql" "python" "nginx" "httpd")
+package=("mysql" "python3" "nginx" "httpd")
 
 mkdir -p $logs_folder
 echo "script starting executing at : $(date)"| tee -a $log_file
@@ -33,7 +33,7 @@ do
     if [ $? -ne 0 ]
     then
         echo "$package is not installed ...going to install" | tee -a $log_file
-        dnf install $package -y&>>$log_file
+        dnf install $package -y &>>$log_file
         VALIDATE $? "$package"
     else
     echo "$package already installed nothing to do" | tee -a $log_file
